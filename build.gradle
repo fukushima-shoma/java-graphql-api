@@ -1,0 +1,53 @@
+plugins {
+    id 'org.springframework.boot' version '3.0.1'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'java'
+    id 'groovy'
+    id 'jacoco'
+}
+
+sourceCompatibility = '17'
+
+dependencies {
+    implementation(
+        'org.springframework.boot:spring-boot-starter',
+        'org.springframework.boot:spring-boot-starter-aop',
+        'org.springframework.boot:spring-boot-starter-webflux',
+        'org.springframework.boot:spring-boot-starter-validation',
+
+        //gql
+        'com.graphql-java-kickstart:graphql-spring-boot-starter:15.0.0',
+        'com.graphql-java-kickstart:graphiql-spring-boot-starter:11.1.0'
+    )
+    compileOnly(
+        'org.projectlombok:lombok:1.18.26',
+        'org.springframework.boot:spring-boot-configuration-processor:3.0.6'
+    )
+    annotationProcessor(
+        'org.projectlombok:lombok:1.18.26',
+        'org.springframework.boot:spring-boot-configuration-processor:3.0.6'
+    )
+    testImplementation(
+        'org.springframework:spring-core:5.2.24.RELEASE',
+        'org.springframework.boot:spring-boot-starter-test:3.0.6',
+        'org.spockframework:spock-core:2.3-groovy-3.0',
+        'org.spockframework:spock-spring:2.3-groovy-3.0'
+    )
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion - '0.8.8'
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        csv.required = true
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
