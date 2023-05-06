@@ -1,0 +1,23 @@
+# graphql設定
+graphiql:
+  enabled: true
+  mapping: /graphiql
+  endpoint:
+    graphql: /graphql
+graphql:
+  servlet:
+    actuator-metrics: true
+
+# 監視設定
+management:
+  server:
+    port: 8088
+  endpoints:
+    web:
+      exposure:
+        include: health
+  metrics:
+    distribution:
+      percentiles:
+        http.server.requests: 0.01, 0.05, 0.5, 0.75, 0.9, 0.95, 0.99, 0.999
+        http.client.request: 0.01, 0.05, 0.5, 0.75, 0.9, 0.95, 0.99, 0.999
